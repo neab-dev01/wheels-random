@@ -1,0 +1,156 @@
+:where(.ui-wheel-of-fortune) {
+  --_items: 8; /* จำนวน sector ในวงล้อ */
+  all: unset;
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+  direction: ltr;
+  display: grid;
+  position: relative;
+  width: 100%;
+  &::after {
+    aspect-ratio: 1/cos(30deg);
+    background-color: #0d6937;
+    clip-path: polygon(50% 100%,100% 0,0 0);
+    content: "";
+    height: 4cqi;
+    position: absolute;
+    place-self: start center;
+    scale: 1.4;
+  }
+
+  & > * { position: absolute; }
+
+  button {
+    aspect-ratio: 1 / 1;
+    background: hsla(0, 0%, 100%, .8);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 5cqi;
+    place-self: center;
+    width: 20cqi;
+  }
+
+  ul {
+    all: unset;
+    clip-path: inset(0 0 0 0 round 50%);
+    display: grid;
+    inset: 0;
+    place-content: center start;
+
+    li {
+      align-content: center;
+      aspect-ratio: 1 / calc(2 * tan(180deg / var(--_items)));
+      background: hsl(calc(360deg / var(--_items) * calc(var(--_idx))), 100%, 75%);
+      clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+      display: grid;
+      font-size: 5cqi;
+      grid-area: 1 / -1;
+      padding-left: 1ch;
+      rotate: calc(360deg / var(--_items) * calc(var(--_idx) - 1));
+      transform-origin: center right;
+      user-select: none;
+      width: 50cqi;
+
+  &:nth-of-type(1) { --_idx: 1; background: #fff176; color: #0b6623; }
+  &:nth-of-type(2) { --_idx: 2; background: #c8e6c9; color: #0b6623; }
+  &:nth-of-type(3) { --_idx: 3; background: #fff176; color: #0b6623; }
+  &:nth-of-type(4) { --_idx: 4; background: #c8e6c9; color: #0b6623; }
+  &:nth-of-type(5) { --_idx: 5; background: #fff176; color: #0b6623; }
+  &:nth-of-type(6) { --_idx: 6; background: #c8e6c9; color: #0b6623; }
+  &:nth-of-type(7) { --_idx: 7; background: #fff176; color: #0b6623; }
+  &:nth-of-type(8) { --_idx: 8; background: #c8e6c9; color: #0b6623; }
+    }
+  }
+}
+
+/* for demo */
+* { box-sizing: border-box; }
+body {
+  font-family: system-ui, sans-serif;
+  /* padding: 5cqi; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* เพิ่มขนาดวงล้อสุ่ม */
+.ui-wheel-of-fortune {
+  max-width: min(90vw, 900px);
+  margin: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ui-wheel-of-fortune {
+    max-width: 85vw;
+  }
+  .ui-wheel-of-fortune li {
+    font-size: 3.5cqi !important;
+  }
+  .ui-wheel-of-fortune button {
+    font-size: 4cqi !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ui-wheel-of-fortune {
+    max-width: 95vw;
+  }
+  .ui-wheel-of-fortune li {
+    font-size: 3cqi !important;
+  }
+  .ui-wheel-of-fortune button {
+    font-size: 3.5cqi !important;
+  }
+}
+
+/* ให้แต่ละ sector เป็น relative เพื่อวาง content ภายใน */
+.ui-wheel-of-fortune li {
+  position: relative;
+  padding-left: 0; /* ลบ padding เดิมถ้ามี */
+}
+
+/* container ของ logo + label จะวางชิดขอบด้านขวาของพาร์ท */
+.ui-wheel-of-fortune li .sector-content {
+  position: absolute;
+  right: 26cqi; /* ปรับระยะจากขอบวงล้อ ให้ชิดขอบมากขึ้น */
+  top: 50%;
+  transform: translateY(-50%) rotate(calc(-360deg / var(--_items) * calc(var(--_idx) - 1)));
+  display: inline-flex;
+  gap: 0.6ch;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* ขนาดโลโก้ ปรับตามต้องการ */
+.ui-wheel-of-fortune li .sector-logo {
+  width: 11cqi;
+  height: auto;
+  display: block;
+  /* ให้โลโก้หมุนตามพาร์ทของวงล้อ เพื่อทิศทางเหมือนตัวอย่างภาพ (บวกค่า 90deg เพื่อให้ด้านบนโลโก้หันออกด้านนอก)
+     .sector-content หมุนเป็นค่าลบเพื่อทำให้ label ตั้งตรง ดังนั้นการเพิ่มการหมุนบวกที่นี่จะทำให้โลโก้หมุนกลับไปตามพาร์ท */
+  transform-origin: center center;
+  transform: rotate(calc(360deg / var(--_items) * calc(var(--_idx) - 1) + 90deg));
+}
+
+/* ข้อความ ให้ตัวหนาและขนาดที่เหมาะสม */
+.ui-wheel-of-fortune li .label {
+  font-weight: 600;
+  font-size: 3.5cqi;
+  white-space: nowrap;
+}
+
+/* responsive: ปรับขนาดโลโก้/ตัวหนังสือ สำหรับหน้าจอเล็ก */
+@media (max-width: 768px) {
+  .ui-wheel-of-fortune li .sector-logo { width: 5cqi; }
+  .ui-wheel-of-fortune li .label { font-size: 3cqi; }
+}
+@media (max-width: 480px) {
+  .ui-wheel-of-fortune li .sector-logo { width: 4cqi; }
+  .ui-wheel-of-fortune li .label { font-size: 2.5cqi; }
+}

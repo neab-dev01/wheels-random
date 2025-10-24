@@ -10,6 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="./style.css"> -->
     <style>
+
+        .sector-logo {
+            image-rendering: crisp-edges;
+            /* ✅ ให้ browser render ชัด */
+            image-rendering: -webkit-optimize-contrast !important;
+        }
+
         .ui-wheel-of-fortune ul {
             will-change: transform;
             /* เพิ่มประสิทธิภาพการ render */
@@ -41,6 +48,7 @@
             display: grid;
             position: relative;
             width: 100%;
+            margin-top: 400px !important;
         }
 
         .ui-wheel-of-fortune::after {
@@ -48,10 +56,12 @@
             background-color: #0d6937;
             clip-path: polygon(50% 100%, 100% 0, 0 0);
             content: "";
-            height: 4cqi;
+            height: 7cqi;
             position: absolute;
             place-self: start center;
-            scale: 1.4;
+            scale: 2;
+            z-index: 3;
+            top: -51px;
         }
 
         .ui-wheel-of-fortune>* {
@@ -59,22 +69,47 @@
         }
 
         .ui-wheel-of-fortune button {
-            aspect-ratio: 1 / 1;
-            background: hsla(0, 0%, 100%, 0.8);
+            position: absolute;
+            left: 50%;
+            bottom: -98%;
+            transform: translateX(-50%);
+            width: min(274px, 80vw);
+            height: 74px;
+            aspect-ratio: auto;
+            background: #0d6937;
+            color: #fff;
             border: 0;
-            border-radius: 50%;
+            border-radius: 999px;
             cursor: pointer;
-            font-size: 5cqi;
-            place-self: center;
-            width: 20cqi;
+            font-size: clamp(16px, 5cqi, 35px);
+            place-self: auto;
+            z-index: 10;
+            box-shadow: 0 8px 20px rgba(13, 105, 55, 0.35);
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .ui-wheel-of-fortune .top-logo {
+            position: absolute;
+            top: -294px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: auto;
+            z-index: 4;
+            pointer-events: none;
         }
 
         .ui-wheel-of-fortune ul {
             all: unset;
-            clip-path: inset(0 0 0 0 round 50%);
+            border-radius: 50%;
+            overflow: hidden;
             display: grid;
             inset: 0;
             place-content: center start;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 0 12px #0d6937;
         }
 
         .ui-wheel-of-fortune ul li {
@@ -89,6 +124,8 @@
             user-select: none;
             width: 50cqi;
             position: relative;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .ui-wheel-of-fortune ul li:nth-of-type(1) {
@@ -186,10 +223,12 @@
             margin: 0;
             overflow-x: hidden;
             overflow-y: hidden;
+            background: url('./img/BG.png') center top;
+            background-position-y: -12px;
         }
 
         .ui-wheel-of-fortune {
-            max-width: min(90vw, 900px);
+            max-width: min(90vw, 728px);
             margin: auto;
         }
 
@@ -235,14 +274,36 @@
             .ui-wheel-of-fortune li .label {
                 font-size: 2.5cqi;
             }
+
+            .stage {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                /* จัดกึ่งกลางแนวตั้ง */
+                min-height: 100vh;
+                padding-top: 50px !important;
+                /* ยกเลิก padding บนเดิม */
+            }
+
+            .ui-wheel-of-fortune {
+                transform: translateY(-50%);
+                /* ขยับวงล้อขึ้นเล็กน้อย (ปรับได้ตามต้องการ) */
+            }
+
+            .ui-wheel-of-fortune .top-logo {
+                top: -6cqi;
+                /* ปรับค่านี้ให้โลโก้อยู่พอดีกับขอบบน */
+            }
+
         }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="container d-flex justify-content-center align-items-start min-vh-100 stage">
             <fieldset class="ui-wheel-of-fortune">
+                <img src="./img/logo2.png" alt="logo" class="top-logo">
                 <ul>
                     <li>
                         <div class="sector-content">
@@ -293,7 +354,7 @@
                         </div>
                     </li>
                 </ul>
-                <button type="button">SPIN</button>
+                <button type="button">START</button>
             </fieldset>
         </div>
     </div>

@@ -6,7 +6,148 @@
     <title>test</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <style>
+        .ui-wheel-of-fortune {
+  --_items: 8;
+  all: unset;
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+  direction: ltr;
+  display: grid;
+  position: relative;
+  width: 100%;
+}
+
+.ui-wheel-of-fortune::after {
+  aspect-ratio: 1/cos(30deg);
+  background-color: #0d6937;
+  clip-path: polygon(50% 100%, 100% 0, 0 0);
+  content: "";
+  height: 4cqi;
+  position: absolute;
+  place-self: start center;
+  scale: 1.4;
+}
+
+.ui-wheel-of-fortune > * {
+  position: absolute;
+}
+
+.ui-wheel-of-fortune button {
+  aspect-ratio: 1 / 1;
+  background: hsla(0, 0%, 100%, 0.8);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 5cqi;
+  place-self: center;
+  width: 20cqi;
+}
+
+.ui-wheel-of-fortune ul {
+  all: unset;
+  clip-path: inset(0 0 0 0 round 50%);
+  display: grid;
+  inset: 0;
+  place-content: center start;
+}
+
+.ui-wheel-of-fortune ul li {
+  align-content: center;
+  aspect-ratio: 1 / calc(2 * tan(180deg / var(--_items)));
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+  display: grid;
+  font-size: 5cqi;
+  grid-area: 1 / -1;
+  padding-left: 1ch;
+  transform-origin: center right;
+  user-select: none;
+  width: 50cqi;
+  position: relative;
+}
+
+.ui-wheel-of-fortune ul li:nth-of-type(1) { --_idx: 1; background: #fff176; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(2) { --_idx: 2; background: #c8e6c9; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(3) { --_idx: 3; background: #fff176; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(4) { --_idx: 4; background: #c8e6c9; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(5) { --_idx: 5; background: #fff176; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(6) { --_idx: 6; background: #c8e6c9; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(7) { --_idx: 7; background: #fff176; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+.ui-wheel-of-fortune ul li:nth-of-type(8) { --_idx: 8; background: #c8e6c9; color: #0b6623; transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1))); }
+
+.ui-wheel-of-fortune li .sector-content {
+  position: absolute;
+  right: 26cqi;
+  top: 50%;
+  transform: translateY(-50%) rotate(calc(-360deg / var(--_items) * (var(--_idx) - 1)));
+  display: inline-flex;
+  gap: 0.6ch;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ui-wheel-of-fortune li .sector-logo {
+  width: 11cqi;
+  height: auto;
+  display: block;
+  transform-origin: center center;
+  transform: rotate(calc(360deg / var(--_items) * (var(--_idx) - 1) + 90deg));
+}
+
+.ui-wheel-of-fortune li .label {
+  font-weight: 600;
+  font-size: 3.5cqi;
+  white-space: nowrap;
+}
+
+/* Demo styling */
+* { box-sizing: border-box; }
+body {
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.ui-wheel-of-fortune {
+  max-width: min(90vw, 900px);
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .ui-wheel-of-fortune {
+    max-width: 85vw;
+  }
+  .ui-wheel-of-fortune li {
+    font-size: 3.5cqi !important;
+  }
+  .ui-wheel-of-fortune button {
+    font-size: 4cqi !important;
+  }
+  .ui-wheel-of-fortune li .sector-logo { width: 5cqi; }
+  .ui-wheel-of-fortune li .label { font-size: 3cqi; }
+}
+
+@media (max-width: 480px) {
+  .ui-wheel-of-fortune {
+    max-width: 95vw;
+  }
+  .ui-wheel-of-fortune li {
+    font-size: 3cqi !important;
+  }
+  .ui-wheel-of-fortune button {
+    font-size: 3.5cqi !important;
+  }
+  .ui-wheel-of-fortune li .sector-logo { width: 4cqi; }
+  .ui-wheel-of-fortune li .label { font-size: 2.5cqi; }
+}
+
+    </style>
 </head>
 <body>
   <div class="container-fluid">
@@ -67,7 +208,6 @@
     </div>
   </div>
   <!-- Bootstrap Bundle (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./script.js"></script>
 </body>
 

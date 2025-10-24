@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cleanup = wheelOfFortune('.ui-wheel-of-fortune');
   
   // Optional: Clean up when the component is no longer needed
-  // window.addEventListener('unload', () => {
-  //   if (typeof cleanup === 'function') {
-  //     cleanup();
-  //   }
-  // });
+  window.addEventListener('unload', () => {
+    if (typeof cleanup === 'function') {
+      cleanup();
+    }
+  });
 });

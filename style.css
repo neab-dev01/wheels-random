@@ -136,3 +136,7 @@ body {
   .ui-wheel-of-fortune li .sector-logo { width: 4cqi; }
   .ui-wheel-of-fortune li .label { font-size: 2.5cqi; }
 }
+
+.wheel {
+  transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}

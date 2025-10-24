@@ -3,6 +3,21 @@ JavaScript only required for spin interaction, not for rendering the component.
 */
 
 function wheelOfFortune(selector) {
+  // เพิ่มโค้ดนี้ใน script.js
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+      // เมื่อผู้ใช้กลับมาใช้งาน
+      if (isSpinning) {
+        // หากกำลังหมุนอยู่ ให้หยุดการหมุนและรีเซ็ตตำแหน่ง
+        cancelAnimationFrame(animationId);
+        isSpinning = false;
+        // รีเซ็ตการหมุนให้กลับมาเป็นวงกลม
+        wheel.style.transform = 'rotate(0deg)';
+        wheel.style.transition = 'none';
+      }
+    }
+  });
+
   const node = document.querySelector(selector);
   if (!node) return;
 
@@ -31,7 +46,10 @@ function wheelOfFortune(selector) {
     });
 
     previousEndDegree = newEndDegree;
+    
   });
+
+
 }
 
 // Usage
